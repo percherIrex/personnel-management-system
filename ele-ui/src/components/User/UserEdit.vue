@@ -27,8 +27,8 @@
             <vxe-table-column title="操作">
                 <template v-slot="{ row }">
                     <template v-if="$refs.xTable.isActiveByRow(row)">
-                        <vxe-button @click="saveRowEvent(row)" size="small">保存</vxe-button>
-                        <vxe-button @click="cancelRowEvent(row)" size="small">取消</vxe-button>
+                        <vxe-button @click="saveRowEvent(row)" size="mini">保存</vxe-button>
+                        <vxe-button @click="cancelRowEvent(row)" size="mini">取消</vxe-button>
                     </template>
                     <template v-else>
 
@@ -108,11 +108,14 @@
             deleRowEvent(row) {
                 //console.log("删除" + row.id)
                 let _this = this
+                let my = JSON.parse(sessionStorage.getItem("userInfo"))
                 this.$XModal.confirm('您确定要删除该数据?').then(type => {
                     if (type === 'confirm') {
                         this.$refs.xTable.remove(row)
                         //向服务器请求删除
-                        axios.delete("http://localhost:8081/user/deleteUser/" + row.id).then(function (resp) {
+                        axios.delete("http://localhost:8081/user/deleteUser/" +
+                            row.id+"/"+row.name+"/"+my.uid+"/"+my.name)
+                            .then(function (resp) {
                             if (resp.data) {
                                 _this.$message('删除成功');
                                 //window.location.reload()
@@ -133,10 +136,12 @@
             //修改后保存事件
             saveRowEvent(row) {
                 let _this = this
+                let my = JSON.parse(sessionStorage.getItem("userInfo"))
+
                 this.$refs.xTable.clearActived().then(() => {
 
                     //提交到数据库,自动封装成Json
-                    axios.put("http://localhost:8081/user//updateUser", row).then(function (resp) {
+                    axios.put("http://localhost:8081/user/updateUser/"+my.uid+"/"+my.name, row).then(function (resp) {
                         if (resp.data) {
                             _this.$message('修改成功');
                         } else {

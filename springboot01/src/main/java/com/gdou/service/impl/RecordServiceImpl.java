@@ -1,6 +1,7 @@
 package com.gdou.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.gdou.MyUitls.DateTime;
 import com.gdou.dao.RecordMapper;
 import com.gdou.entity.Record;
 import com.gdou.service.RecordService;
@@ -20,9 +21,11 @@ public class RecordServiceImpl extends ServiceImpl<RecordMapper, Record> impleme
     @Override
     public boolean dailySign(Record r) {
 
-        Date d = new Date();
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(d);
-        String time = new SimpleDateFormat("HH:mm:ss").format(d);
+        //Date d = new Date();
+        //String date = new SimpleDateFormat("yyyy-MM-dd").format(d);
+        //String time = new SimpleDateFormat("HH:mm:ss").format(d);
+        String date = DateTime.getDT("yyyy-MM-dd");
+        String time = DateTime.getDT("HH:mm:ss");
 
         //打卡函数，一人一日只打卡一次
         Integer uid = r.getUid();
@@ -49,8 +52,9 @@ public class RecordServiceImpl extends ServiceImpl<RecordMapper, Record> impleme
 
     @Override
     public List<Record> allToday() {
-        Date d = new Date();
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(d);
+        //Date d = new Date();
+        //String date = new SimpleDateFormat("yyyy-MM-dd").format(d);
+        String date = DateTime.getDT("yyyy-MM-dd");
         return recordMapper.allToday(date);
     }
 
@@ -61,8 +65,9 @@ public class RecordServiceImpl extends ServiceImpl<RecordMapper, Record> impleme
 
     @Override
     public List<Record> allAbsent() {
-        Date d = new Date();
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(d);
+        //Date d = new Date();
+        //String date = new SimpleDateFormat("yyyy-MM-dd").format(d);
+        String date = DateTime.getDT("yyyy-MM-dd");
         return recordMapper.allTodayAbsent(date);
     }
 
@@ -79,8 +84,10 @@ public class RecordServiceImpl extends ServiceImpl<RecordMapper, Record> impleme
      */
     @Override
     public boolean absentApply(Record r) {
-        Date d = new Date();
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(d);
+        //Date d = new Date();
+        //String date = new SimpleDateFormat("yyyy-MM-dd").format(d);
+        String date = DateTime.getDT("yyyy-MM-dd");
+
 
         Integer uid = r.getUid();
         String reason = r.getReason();
@@ -96,15 +103,17 @@ public class RecordServiceImpl extends ServiceImpl<RecordMapper, Record> impleme
 
     @Override
     public Integer countOfSign() {
-        Date d = new Date();
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(d);
+        //Date d = new Date();
+        //String date = new SimpleDateFormat("yyyy-MM-dd").format(d);
+        String date = DateTime.getDT("yyyy-MM-dd");
         return recordMapper.countOfSign(date);
     }
 
     @Override
     public Integer countOfAbsent() {
-        Date d = new Date();
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(d);
+        //Date d = new Date();
+        //String date = new SimpleDateFormat("yyyy-MM-dd").format(d);
+        String date = DateTime.getDT("yyyy-MM-dd");
         return recordMapper.countOfAbsent(date);
     }
 
@@ -116,9 +125,9 @@ public class RecordServiceImpl extends ServiceImpl<RecordMapper, Record> impleme
      */
     @Override
     public Integer countOfSomeOneRecord(Integer uid, Boolean type) {
-        Date d = new Date();
-        String date = new SimpleDateFormat("yyyy-MM").format(d);
-
+        //Date d = new Date();
+        //String date = new SimpleDateFormat("yyyy-MM").format(d);
+        String date = DateTime.getDT("yyyy-MM");
         return recordMapper.countOfSomeOneRecord(date,uid,type);
     }
 

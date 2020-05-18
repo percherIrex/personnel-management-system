@@ -27,7 +27,7 @@ const routes = [
     },
     {
         path: "/navigation",
-        name: "人事管理",
+        name: "人员管理",
         component: Index,
         children: [
             {
@@ -53,16 +53,16 @@ const routes = [
         path: "/navigation2",
         name: "薪资管理",
         component: Index,
-        children:[
+        children: [
             {
-                path:"/salary/edit",
-                name:"薪资编辑",
-                component:()=>import('../components/Salary/SalaryEdit')
+                path: "/salary/edit",
+                name: "薪资编辑",
+                component: () => import('../components/Salary/SalaryEdit')
             },
             {
-                path:"/salary/out",
-                name:"月度报表",
-                component:()=>import('../components/Salary/SalaryOut')
+                path: "/salary/out",
+                name: "月度报表",
+                component: () => import('../components/Salary/SalaryOut')
             }
 
         ]
@@ -81,20 +81,33 @@ const routes = [
                 path: "/sign/absent",
                 name: "请假相关",
                 component: () => import('../components/Sign/Absent')
+            },
+            {
+                path: "/app/handle",
+                name: "请假审批",
+                component: () => import('../components/Sign/HandleApp')
             }
         ]
     },
     {
         path: "/navigation4",
-        name: "权限管理",
+        name: "系统相关",
         component: Index,
-        children: [{
-            path: "/control",
-            name: "权限操作",
-            component: () => import("../components/Author/Control")
-        }]
+        children: [
+            {
+                path: "/control",
+                name: "权限操作",
+                component: () => import("../components/Author/Control")
+            },
+            {
+                path: "/operation",
+                name: "操作历史",
+                component: () => import("../components/Operation/OperationList")
+            }
+        ]
 
     },
+
 
 ]
 

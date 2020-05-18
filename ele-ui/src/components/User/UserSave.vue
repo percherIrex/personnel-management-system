@@ -107,10 +107,13 @@
         methods: {
             submitForm(formName) {
                 let _this = this
+                let my = JSON.parse(sessionStorage.getItem("userInfo"))
+
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         //提交到数据库,自动封装成Json
-                        axios.post("http://localhost:8081/user/saveUser", _this.ruleForm).then(function (resp) {
+                        axios.post("http://localhost:8081/user/saveUser/"+my.uid+"/"+my.name, _this.ruleForm)
+                            .then(function (resp) {
                             if (resp.data) {
                                 //_this.$message('数据添加成功');
                                 //页面跳转
@@ -118,7 +121,7 @@
                                 //window.location.reload()
                                 _this.$notify({
                                     title: '提示',
-                                    message: '人员添加成功，账号为，默认密码为000000',
+                                    message: '人员添加成功，账号为电话号码，默认密码为000000',
                                     duration: 0,
                                     type: "success"
                                 })

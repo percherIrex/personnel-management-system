@@ -44,27 +44,28 @@
             ,
             changeEvent(row) {
                 let _this = this
-
+                let my = JSON.parse(sessionStorage.getItem("userInfo"))
                 if (row.author) {
                     row.duty = "管理员"
                     //http://localhost:8081/login/editRole/{uid}/1
                     //向服务器请求row.id变为管理员
-                    axios.put("http://localhost:8081/login/editRole/" + row.uid + "/1").then(function (resp) {
+                    axios.put("http://localhost:8081/login/editRole/" + row.uid + "/1/"
+                        + row.name + "/" + my.uid + "/" + my.name).then(function (resp) {
                         if (resp.data) {
                             _this.$message.success(row.name + "已成为管理员")
-                        }else {
+                        } else {
                             console.log("error")
                         }
                     })
                 } else {
-
                     row.duty = "员工"
                     //http://localhost:8081/login/editRole/{uid}/2
                     //向服务器撤销row.id的管理员资格
-                    axios.put("http://localhost:8081/login/editRole/" + row.uid + "/2").then(function (resp) {
+                    axios.put("http://localhost:8081/login/editRole/" + row.uid + "/2/"
+                        + row.name + "/" + my.uid + "/" + my.name).then(function (resp) {
                         if (resp.data) {
                             _this.$message.info(row.name + "已降级为员工")
-                        }else {
+                        } else {
                             console.log("error")
                         }
                     })

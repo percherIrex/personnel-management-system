@@ -58,7 +58,7 @@ public class RecordHandle {
         if(m==1){
             return recordService.countOfSomeOneRecord(uid,true);
         }else {
-            return recordService.countOfSomeOneRecord(uid,false);
+            return recordService.countOfSomeOneRecord(uid, false);
         }
     }
 }

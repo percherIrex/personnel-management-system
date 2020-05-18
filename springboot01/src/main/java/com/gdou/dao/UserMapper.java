@@ -16,7 +16,4 @@ public interface UserMapper extends BaseMapper<User> {
             "SELECT * FROM myTemp.user where concat(`name`,`gender`,`depart`,`position`,`address`) like '%${keyWord}%'" +
             "</script>")
     List<User> findByKey(@Param("keyWord") String key);
-
-
-
 }

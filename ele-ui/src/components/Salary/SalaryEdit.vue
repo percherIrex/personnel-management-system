@@ -49,15 +49,13 @@
                         uid: 99,
                         name: "王安之",
                         position: "教授",
-                        wages:5000,
+                        wages: 5000,
                         fund: 0.12,
                         insure1: 0.2,
                         insure2: 0.1,
                         insure3: 0.01,
                         insure4: 0.01,
                         insure5: 0.008,
-
-
                     }
                 ],
                 fundList: []
@@ -71,8 +69,8 @@
         },
 
         methods: {
-            countAmount (row) {
-                let sum =  row.insure1+row.insure2+row.insure3+row.insure4+row.insure5
+            countAmount(row) {
+                let sum = row.insure1 + row.insure2 + row.insure3 + row.insure4 + row.insure5
                 sum = parseFloat(sum).toFixed(3)
                 return sum
             },
@@ -83,11 +81,12 @@
                 // console.log(v)
             },
             editClosedEvent({row, column}, event) {
-                axios.put("http://localhost:8081/capital/update", row).then(function (resp) {
+                let my = JSON.parse(sessionStorage.getItem("userInfo"))
+                axios.put("http://localhost:8081/capital/update/" + my.uid + "/" + my.name, row).then(function (resp) {
                     if (resp.data) {
-                        console.log("修改成功")
+                        _this.$message('修改参数成功');
                     } else {
-                        console.log("nothing happen")
+                        _this.$message('修改参数失败');
                     }
                 })
             }

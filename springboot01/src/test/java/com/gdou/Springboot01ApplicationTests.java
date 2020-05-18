@@ -2,6 +2,7 @@ package com.gdou;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.gdou.MyUitls.DateTime;
 import com.gdou.dao.RecordMapper;
 import com.gdou.dao.UserMapper;
 import com.gdou.entity.Record;
@@ -90,18 +91,19 @@ public class Springboot01ApplicationTests {
     public void roleSave() {
 //        String time = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 //        System.out.println(time);
-        System.out.println(roleService.findProper("admin","123456"));
+        System.out.println(roleService.findProper("admin", "123456"));
     }
 
     @Resource
     private RecordMapper recordMapper;
     @Resource
     private RecordService recordService;
+
     @Test
-    public void record(){
+    public void record() {
         //System.out.println(recordMapper.sign("2019-07-11",1));
 
-       // System.out.println(recordMapper.sign("2019-07-11",1).getStatus());
+        // System.out.println(recordMapper.sign("2019-07-11",1).getStatus());
 
 //        Record record=new Record();
 //        record.setName("涂超");
@@ -114,4 +116,21 @@ public class Springboot01ApplicationTests {
         //System.out.println(recordMapper.selectById(1));
     }
 
+    @Test
+    public void testsign() {
+        //每日签到函数
+        List<User> userList = userService.list();
+        for (User user : userList) {
+            Record record = new Record();
+            record.setUid(user.getId());
+            record.setName(user.getName());
+            recordService.dailySign(record);
+        }
+        System.out.println("打卡完成");
+    }
+
+    @Test
+    public void DT(){
+        System.out.println(DateTime.getDT("yyyy-MM-dd HH:mm:ss"));
+    }
 }

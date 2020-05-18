@@ -14,7 +14,7 @@
                 ref="xTable"
                 height="460"
                 :data="tableData">
-            <vxe-table-column field="uid" title="UID"></vxe-table-column>
+            <vxe-table-column field="uid" title="UID" fixed="left"></vxe-table-column>
             <vxe-table-column field="name" title="名字"></vxe-table-column>
             <vxe-table-column field="position" title="职称"></vxe-table-column>
             <vxe-table-column field="wages" title="基本工资"></vxe-table-column>

@@ -1,5 +1,7 @@
 package com.gdou.controller;
 
+import com.gdou.MyUitls.OperationRecord;
+import com.gdou.dao.OperationMapper;
 import com.gdou.entity.Capital;
 import com.gdou.entity.myEntity.CapitalNeed;
 import com.gdou.service.CapitalService;
@@ -19,14 +21,22 @@ public class CapitalHandle {
     private CapitalService capitalService;
     @Resource
     private RecordService recordService;
+    @Resource
+    private OperationMapper operationMapper;
 
     @GetMapping("/list")
-    public List<Capital> listCapital(){
+    public List<Capital> listCapital()
+    {
         return capitalService.list();
     }
 
-    @PutMapping("/update")
-    public boolean updateById(@RequestBody Capital capital){
+    @PutMapping("/update/{main_id}/{main_name}")
+    public boolean updateById(@RequestBody Capital capital,
+                              @PathVariable("main_id") String main_id,
+                              @PathVariable("main_name") String main_name){
+
+        operationMapper.insert(OperationRecord.init(main_id+"-"+main_name,"修改","资金参数"));
+
         return capitalService.updateById(capital);
     }
 
