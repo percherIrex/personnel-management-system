@@ -1,6 +1,14 @@
 # personnel-management-system
-基于前后端分离的，Vue+SpringBoot小型人事系统
-包括以下内容：  
+基于前后端分离的，Vue+SpringBoot小型人事系统  
+
+主要功能有：  
+·人员档案信息管理，增删改查  
+·人员考勤情况管理  
+·根据人员考勤情况实现自动计算统计月度薪资  
+·系统操作历史记录  
+·系统人员权限管理  
+
+开发过程包括以下内容：  
 ·使用了Axios进行了前后两端的通信  
 ·使用了SpringBoot+MybatisPlus进行了后端业务代码的编写  
 ·系统接口严格遵循RESTful风格  
