@@ -14,7 +14,7 @@
                 ref="xTable"
                 height="460"
                 :data="tableData">
-            <vxe-table-column field="uid" title="UID" fixed="left"></vxe-table-column>
+<!--            <vxe-table-column field="uid" title="UID" fixed="left"></vxe-table-column>-->
             <vxe-table-column field="name" title="名字"></vxe-table-column>
             <vxe-table-column field="position" title="职称"></vxe-table-column>
             <vxe-table-column field="wages" title="基本工资"></vxe-table-column>
@@ -32,7 +32,7 @@
             <vxe-table-column field="c" title="请假应扣" :formatter="countDeduct1"></vxe-table-column>
             <vxe-table-column field="d" title="缺勤应扣" :formatter="countDeduct2"></vxe-table-column>
             <vxe-table-column field="e" title="五险一金合" :formatter="countDeduct3"></vxe-table-column>
-            <vxe-table-column field="f" title="应发合" :formatter="countDeduct4"></vxe-table-column>
+<!--            <vxe-table-column field="f" title="应发合" :formatter="countDeduct4"></vxe-table-column>-->
             <vxe-table-column field="g" title="应扣合" :formatter="countDeduct5"></vxe-table-column>
             <vxe-table-column field="h" title="实发" :formatter="countDeduct6"></vxe-table-column>
         </vxe-table>
@@ -73,11 +73,12 @@
             countDeduct6(row) {
                 let r = row.row
                 let d = new Date()
-                let day = new Date(d.getFullYear(), 2, 0).getDate()
+                let day = new Date(d.getFullYear(), d.getDate()+1, 0).getDate()
                 //基本工资减应合扣  保底是3000
+                //没有保底了
                 let result = r.wages - ((day - r.sign - r.absent) * 500) + (r.absent * 200)
-                if (result < 3000) {
-                    result = 3000
+                if (result < 0) {
+                    result = 0
                 }
                 return result
             }
@@ -85,7 +86,7 @@
             countDeduct5(row) {
                 let r = row.row
                 let d = new Date()
-                let day = new Date(d.getFullYear(), 2, 0).getDate()
+                let day = new Date(d.getFullYear(), d.getDate()+1, 0).getDate()
 
                 return ((day - r.sign - r.absent) * 500) + (r.absent * 200)
             }
@@ -107,7 +108,7 @@
             countDeduct2(row) {
                 let r = row.row
                 let d = new Date()
-                let day = new Date(d.getFullYear(), 2, 0).getDate()
+                let day = new Date(d.getFullYear(), d.getDate()+1, 0).getDate()
 
                 return (day - r.sign - r.absent) * 500
             }
@@ -120,7 +121,7 @@
             countAbsent(row) {
                 let r = row.row
                 let d = new Date()
-                let day = new Date(d.getFullYear(), 2, 0).getDate()
+                let day = new Date(d.getFullYear(), d.getDate()+1, 0).getDate()
 
                 return (day - r.sign - r.absent)
             },

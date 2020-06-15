@@ -35,4 +35,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return userMapper.selectCount(null);
     }
 
+    @Override
+    public Integer countByDepart(String depart) {
+        return userMapper.countByDepart(depart);
+    }
+
+    @Override
+    public Integer countByGender(String gender) {
+        return userMapper.countByGender(gender);
+    }
+
+
 }

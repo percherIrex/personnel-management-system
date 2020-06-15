@@ -14,4 +14,8 @@ public interface UserService extends IService<User> {
     List<User> findByKey(String key);
 
     Integer getTotal();
+
+    Integer countByDepart(String depart);
+
+    Integer countByGender(String gender);
 }

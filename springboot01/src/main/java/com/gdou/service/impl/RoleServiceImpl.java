@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+//接口实现类
 @Service
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
 
     @Resource
     private RoleMapper roleMapper;
-
 
     //新增员工时候同时也向权限表添加Role
     @Override
@@ -32,8 +32,8 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     }
 
     @Override
-    public Role findProper(String name, String pwd) {
-        return roleMapper.loginRole(name,pwd);
+    public Role findProper(String usn) {
+        return roleMapper.loginRole(usn);
     }
 
     @Override

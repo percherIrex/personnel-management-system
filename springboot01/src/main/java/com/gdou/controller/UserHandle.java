@@ -6,6 +6,7 @@ import com.gdou.MyUitls.OperationRecord;
 import com.gdou.dao.OperationMapper;
 import com.gdou.entity.Capital;
 import com.gdou.entity.User;
+import com.gdou.entity.myEntity.Vision;
 import com.gdou.service.CapitalService;
 import com.gdou.service.RoleService;
 import com.gdou.service.UserService;
@@ -15,8 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/user")
@@ -94,5 +94,40 @@ public class UserHandle {
         String who = main_id + "-" + main_name;
         operationMapper.insert(OperationRecord.init(who, "删除", id + "-" + name));
         return userService.removeById(id);
+    }
+
+    //数据可视化第三个图
+    @GetMapping("/countDepart")
+    List<Vision> countDepart() {
+        List<Vision> list = new ArrayList<>();
+        Vision v ;
+        String[] s = {"销售部","研发部","生产部","人事部"};
+
+        int value;
+        for (String s1 : s) {
+            v = new Vision();
+            value = userService.countByDepart(s1);
+            v.setValue(value);
+            v.setName(s1);
+            list.add(v);
+        }
+        return list;
+    }
+
+    //数据可视化第四个图
+    @GetMapping("/countGender")
+    List<Vision> countGender(){
+        List<Vision> list = new ArrayList<>();
+        Vision v = new Vision();
+        v.setName("男");
+        v.setValue(userService.countByGender("男"));
+        list.add(v);
+
+        v = new Vision();
+        v.setName("女");
+        v.setValue(userService.countByGender("女"));
+        list.add(v);
+
+        return list;
     }
 }

@@ -36,7 +36,7 @@ public interface RecordMapper extends BaseMapper<Record> {
             "</script>")
     List<Record> mySign(@Param("uid") Integer uid);
 
-    //当日请假的人**
+    //当日请假的人
     @Select("<script>" +
             "SELECT * FROM record where date=#{date} and status=0" +
             "</script>")
@@ -60,6 +60,19 @@ public interface RecordMapper extends BaseMapper<Record> {
             "</script>")
     Integer countOfAbsent(@Param("date") String date);
 
+    //个人状态
+    @Select("<script>" +
+            "SELECT * FROM record where date=#{date} and uid=#{uid}" +
+            "</script>")
+    Record personalStatus(@Param("uid") Integer uid,
+                          @Param("date") String date);
+
+    //个人本月考勤情况
+    @Select("<script>" +
+            "SELECT * FROM record where date like '${date}%' and uid=#{uid}" +
+            "</script>")
+    List<Record> personalHole(@Param("uid") Integer uid,
+                              @Param("date") String date);
 
     /**
      * 报表用接口
@@ -67,6 +80,8 @@ public interface RecordMapper extends BaseMapper<Record> {
     @Select("<script>" +
             "SELECT count(*) FROM record WHERE date LIKE '%${date}%' " +
             "AND uid=#{uid} AND status=#{status}</script>")
-    Integer countOfSomeOneRecord(@Param("date") String date, @Param("uid") Integer uid,@Param("status") Boolean type);
+    Integer countOfSomeOneRecord(@Param("date") String date,
+                                 @Param("uid") Integer uid,
+                                 @Param("status") Boolean type);
 
 }

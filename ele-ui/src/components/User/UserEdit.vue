@@ -106,7 +106,6 @@
 
             //删除事件
             deleRowEvent(row) {
-                //console.log("删除" + row.id)
                 let _this = this
                 let my = JSON.parse(sessionStorage.getItem("userInfo"))
                 this.$XModal.confirm('您确定要删除该数据?').then(type => {

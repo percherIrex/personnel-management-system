@@ -91,7 +91,7 @@ public class Springboot01ApplicationTests {
     public void roleSave() {
 //        String time = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 //        System.out.println(time);
-        System.out.println(roleService.findProper("admin", "123456"));
+        //System.out.println(roleService.findProper("admin", "123456"));
     }
 
     @Resource

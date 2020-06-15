@@ -11,7 +11,7 @@ public class CapitalNeed extends Capital{
 
     public CapitalNeed(Capital c){
         this.setId(c.getId());
-        this.setUid(c.getUid());
+        //this.setUid(c.getUid());
         this.setName(c.getName());
         this.setPosition(c.getPosition());
         this.setWages(c.getWages());

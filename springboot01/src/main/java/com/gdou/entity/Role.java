@@ -9,7 +9,6 @@ import lombok.Data;
 @TableName(value = "role")
 @Data
 public class Role {
-
     @TableId(value = "rid", type = IdType.AUTO)
     @JsonIgnore
     private Integer rid;
@@ -17,4 +16,5 @@ public class Role {
     private Integer uid;
     private Boolean author;
     private String username;
+    private String password;
 }

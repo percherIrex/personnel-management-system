@@ -9,9 +9,9 @@ import org.apache.ibatis.annotations.Update;
 public interface RoleMapper extends BaseMapper<Role> {
 
     @Select("<script>" +
-            "SELECT * FROM role where username=#{usn} and password=#{pwd}" +
+            "SELECT * FROM role where username=#{usn}" +
             "</script>")
-    Role loginRole(@Param("usn") String usn, @Param("pwd") String pwd);
+    Role loginRole(@Param("usn") String usn);
 
     @Update("<script>" +
             "UPDATE role SET author=1 where uid=#{uid}" +
@@ -22,5 +22,4 @@ public interface RoleMapper extends BaseMapper<Role> {
             "UPDATE role SET author=0 where uid=#{uid}" +
             "</script>")
     boolean editRole_2(@Param("uid") Integer id);
-
 }

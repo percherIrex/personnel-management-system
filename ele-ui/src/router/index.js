@@ -14,7 +14,7 @@ const routes = [
     },
     {
         path: "/index",
-        name: "员工资料",
+        name: "企业信息",
         component: Index,
         //redirect:"路径",
         children: [
@@ -23,6 +23,11 @@ const routes = [
                 name: "员工信息",
                 component: () => import('../components/User/UserList.vue')
             },
+            {
+                path: "/vision",
+                name: "可视化",
+                component: ()=> import('../views/Vision')
+            }
         ]
     },
     {
@@ -32,13 +37,13 @@ const routes = [
         children: [
             {
                 path: "/user/new",
-                name: "新晋员工",
+                name: "新增员工",
                 component: () => import('../components/User/UserSave.vue')
             },
 
             {
                 path: "/user/edit",
-                name: "人员调动",
+                name: "信息更改",
                 component: () => import('../components/User/UserEdit.vue')
             },
 
@@ -91,7 +96,7 @@ const routes = [
     },
     {
         path: "/navigation4",
-        name: "系统相关",
+        name: "系统安全",
         component: Index,
         children: [
             {
@@ -107,6 +112,21 @@ const routes = [
         ]
 
     },
+    {
+        path: "/navi5",
+        name: "更改密码",
+        component: Index,
+        children: [
+            {
+                path: "/changePW",
+                component: () => import("../views/EditPW")
+            },
+            {
+                path: "/personal",
+                component: () => import("../views/Personal")
+            }
+        ]
+    }
 
 
 ]

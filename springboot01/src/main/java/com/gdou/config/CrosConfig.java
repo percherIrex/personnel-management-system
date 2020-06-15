@@ -7,8 +7,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 //解决跨域问题
 @Configuration
 public class CrosConfig implements WebMvcConfigurer {
-
-    //这段代码用到直接复制粘贴
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")

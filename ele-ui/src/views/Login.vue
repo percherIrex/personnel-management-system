@@ -1,12 +1,12 @@
 <template>
     <div class="container">
-        <el-form ref="form" :model="form" class="login-form" >
+        <el-form ref="form" :model="form" class="login-form">
 
-            <h2>人事管理系统登录</h2>
-            <el-form-item >
+            <h2>小型人事管理系统登录</h2>
+            <el-form-item>
                 <el-input placeholder="账号" v-model="form.username"></el-input>
             </el-form-item>
-            <el-form-item >
+            <el-form-item>
                 <el-input placeholder="密码" v-model="form.password" show-password></el-input>
             </el-form-item>
             <el-form-item>
@@ -14,20 +14,6 @@
             </el-form-item>
         </el-form>
 
-<!--        <form action="#" class="login-form">-->
-<!--            <h2>登 录</h2>-->
-<!--            <input-->
-<!--                    type="text"-->
-<!--                    name="username"-->
-<!--                    placeholder="用户名"-->
-<!--            />-->
-<!--            <input-->
-<!--                    type="password"-->
-<!--                    name="password"-->
-<!--                    placeholder="密码"-->
-<!--            />-->
-<!--            <button type="submit">登录</button>-->
-<!--        </form>-->
     </div>
 </template>
 
@@ -48,14 +34,24 @@
                 let usn = this.form.username.toString()
                 let pwd = this.form.password.toString()
 
-                axios.get("http://localhost:8081/login/" + usn + "/" + pwd).then(function (resp) {
-                    //console.log(resp)
+                //开始加密
+                let key_size = usn.length
+                let pwd_size = pwd.length
+                let max = Math.max(key_size, pwd_size)
+
+                let key = ""
+                for (let i = 0; i < max; i++) {
+                    let r = usn.charAt(i % key_size).charCodeAt() & pwd.charAt(i % pwd_size).charCodeAt()
+                    key += r
+                }
+                //加密结束
+                axios.get("http://localhost:8081/login/" + usn + "/" + key).then(function (resp) {
                     if (resp.data === "") {
                         _this.$message("用户不存在");
                     } else {
                         // console.log(resp)
                         sessionStorage.setItem("userInfo", JSON.stringify(resp.data))
-                        _this.$router.push("/index")
+                        _this.$router.push("/personal")
                     }
                 })
             }
@@ -77,9 +73,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #E2D8CF
-
-        fixed no-repeat;
+        background: #E2D8CF fixed no-repeat;
         background-size: cover;
     }
 
@@ -106,8 +100,7 @@
         left: -10px;
         overflow: hidden;
         background: inherit;
-        box-shadow: inset 0 0 0 200px
-        rgba(255, 255, 255, 0.25);
+        box-shadow: inset 0 0 0 200px rgba(255, 255, 255, 0.25);
         filter: blur(6px);
         z-index: -1;
     }

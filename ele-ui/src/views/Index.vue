@@ -4,17 +4,31 @@
 
             <el-header>
                 <div style="text-align: left; ">
-                    <h1> 欢迎使用广东海洋大学人事管理系统</h1>
+                    <h1> 欢迎使用小型企业人事管理系统</h1>
                 </div>
             </el-header>
             <el-header>
                 <div style="text-align: right; font-size: 12px">
                     <router-link v-if="!userInfo.run" to="/">请登录</router-link>
                     <div v-else>
-                        <span>{{userInfo.name}}</span> |
+                        <el-dropdown trigger="click">
+                            <span class="el-dropdown-link">
+                            {{userInfo.name}}<i class="el-icon-arrow-down el-icon--right"></i>
+                            </span>
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item>
+                                    <el-button type="text" size="small" @click="toPersonal">个人中心</el-button>
+                                </el-dropdown-item>
+                                <el-dropdown-item>
+                                    <el-button type="text" size="small" @click="changePW">修改密码</el-button>
+                                </el-dropdown-item>
+                                <el-dropdown-item divided>
+                                    <el-button type="text" size="small" @click="logOut">退出登录</el-button>
+                                </el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>|
                         <span v-if="userInfo.author">管理员</span>
                         <span v-else>员工</span> |
-                        <el-button type="text" size="small" @click="logOut">退出登录</el-button>
                     </div>
                 </div>
             </el-header>
@@ -23,20 +37,6 @@
                 <el-aside width="200px" style="background-color: rgb(238, 241, 246)" >
                     <!--添加router 绑定在菜单-->
                     <el-menu router>
-
-                        <!--                    这里取router中的数组 index取的是下标-->
-                        <!--                        <el-submenu v-for="(item,index) in $router.options.routes" :index="index.toString()"-->
-                        <!--                                    v-if="!item.show" >-->
-                        <!--                            <template slot="title">-->
-                        <!--                                <i class="el-icon-menu"></i>-->
-                        <!--                                {{item.name}}-->
-                        <!--                            </template>-->
-                        <!--                            &lt;!&ndash;                    路径跳转 index绑定路径 记得先加router&ndash;&gt;-->
-                        <!--                            <el-menu-item v-for="_item in item.children" :index="_item.path" v-if="!_item.show">-->
-                        <!--                                &lt;!&ndash;                                      :class="$route.path===_item.path?'is-active':''">&ndash;&gt;-->
-                        <!--                                {{_item.name}}-->
-                        <!--                            </el-menu-item>-->
-                        <!--                        </el-submenu>-->
 
                         <el-submenu :index="'1'">
                             <template slot="title">
@@ -49,7 +49,7 @@
                             </el-menu-item>
                         </el-submenu>
 
-                        <el-submenu :index="'2'" :disabled="!userInfo.author">
+                        <el-submenu :index="'2'" :hidden="!userInfo.author">
                             <template slot="title">
                                 <i class="el-icon-user-solid"></i>
                                 {{$router.options.routes[2].name}}
@@ -60,7 +60,7 @@
                             </el-menu-item>
                         </el-submenu>
 
-                        <el-submenu :index="'3'" :disabled="!userInfo.author">
+                        <el-submenu :index="'3'" :hidden="!userInfo.author">
                             <template slot="title">
                                 <i class="el-icon-s-data"></i>
                                 {{$router.options.routes[3].name}}
@@ -82,7 +82,7 @@
                             </el-menu-item>
                         </el-submenu>
 
-                        <el-submenu :index="'5'" :disabled="!userInfo.author">
+                        <el-submenu :index="'5'" :hidden="!userInfo.author">
                             <template slot="title">
                                 <i class="el-icon-magic-stick"></i>
                                 {{$router.options.routes[5].name}}
@@ -127,6 +127,13 @@
                 this.$message("你已退出登录")
                 this.$router.push("/")
             },
+            toPersonal(){
+                this.$router.push("/personal")
+                //console.log(this.$route.path)
+            },
+            changePW(){
+                this.$router.push("/changePW")
+            }
         },
 
 
@@ -150,12 +157,20 @@
 <style scoped>
     .el-header {
         /*background-color: #909399;*/
-        background: -webkit-linear-gradient(left,mediumturquoise,skyblue, deepskyblue);
+        background: -webkit-linear-gradient(left,#545c64,#545c64);
         color: linen;
         line-height: 60px;
     }
 
     .el-aside {
-        color: #303133;
+        background-color: #303133;
+    }
+
+    .el-dropdown-link {
+        cursor: pointer;
+        color: #ffffff;
+    }
+    .el-icon-arrow-down {
+        font-size: 12px;
     }
 </style>
