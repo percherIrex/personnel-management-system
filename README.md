@@ -3,6 +3,7 @@
 包括以下内容：  
 ·使用了Axios进行了前后两端的通信  
 ·使用了SpringBoot+MybatisPlus进行了后端业务代码的编写  
+·系统接口严格遵循RESTful风格  
 ·使用了ElementUI+Vue.js进行了前端页面的设计  
 ·使用ECharts实现了数据的可视化  
 ·自行设计了密码加密算法  
